@@ -159,6 +159,13 @@
   }
   .video { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 24px 0; background: #1f4d5c; }
   .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .play { all: unset; position: absolute; inset: 0; cursor: pointer; display: block; background: #1f4d5c; }
+  .play img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .play .pbtn { position: absolute; left: 50%; top: 46%; width: 88px; height: 88px; margin: -44px 0 0 -44px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 6px rgba(255,255,255,.55); display: flex; align-items: center; justify-content: center; }
+  .play .pbtn svg { width: 36px; height: 36px; margin-left: 6px; fill: #fff; }
+  .play .plabel { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); padding: 6px 16px; border-radius: 20px; background: rgba(0,0,0,.6); color: #fff; font: 600 16px/1.2 "Plus Jakarta Sans", sans-serif; white-space: nowrap; }
+  .play:hover .pbtn { transform: scale(1.06); }
+  .play:focus-visible { outline: 3px solid var(--teal-focus); outline-offset: 3px; }
   .linkbtn { display: block; width: 100%; margin-top: 24px; min-height: 40px; padding: 0 20px; font: 600 22px/40px "Plus Jakarta Sans", sans-serif; color: #fff; background: var(--teal); border-radius: var(--pill-radius); text-decoration: none; }
   .linkbtn:focus-visible { outline: 2px solid var(--teal-focus); outline-offset: 3px; }
   @media (max-width: 520px) { .linkbtn { font-size: 18px; } }
@@ -184,8 +191,12 @@
     <h1>Check your email</h1>
     <p class="lede">Confirm your subscription to finish.</p>
 
-    <div class="video">
-      <iframe src="https://player.vimeo.com/video/1247657504?app_id=122963" title="Threshold | Subscription Confirmation" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video" id="vid">
+      <button type="button" class="play" id="play" aria-label="Play the video">
+        <img src="https://i.vimeocdn.com/video/2227494769-e8b73f39f870de6a49e666b137ea6bfefa93707f2c58977418ac6354927328a5-d_1280?region=us" alt="" onerror="this.remove()">
+        <span class="pbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+        <span class="plabel">Press play · 15 seconds</span>
+      </button>
     </div>
 
     <p>Open the confirmation email and click the link. If it isn't in your inbox, look in spam or promotions.</p>
@@ -194,5 +205,16 @@
     <p>Once you confirm, the details for Friday's live call arrive by email. The call is Fridays at 9am Pacific.</p>
   </div>
 </main>
+<script>
+  document.getElementById('play').addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = "https://player.vimeo.com/video/1247657504?app_id=122963&autoplay=1";
+    f.title = "Threshold | Subscription Confirmation";
+    f.allow = "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share";
+    f.referrerPolicy = "strict-origin-when-cross-origin";
+    f.allowFullscreen = true;
+    document.getElementById('vid').replaceChildren(f);
+  });
+</script>
 </body>
 </html>
